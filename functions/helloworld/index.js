@@ -101,7 +101,13 @@ exports.helloGCS = function (event, callback) {
   if (isDelete) {
     console.log(`File ${file.name} deleted.`);
   } else {
-    console.log(`File ${file.name} uploaded.`);
+    // metageneration attribute is updated on metadata changes.
+    if (file.metageneration === 1) {
+      // on create value is 1
+      console.log(`File ${file.name} uploaded.`);
+    } else {
+      console.log(`File ${file.name} metadata updated.`);
+    }
   }
 
   callback();
